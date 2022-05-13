@@ -1,0 +1,29 @@
+Vcpkg:
+	1. 是什么？干什么？： Vcpkg 可帮助您在 Windows、 Linux 和 MacOS 上管理 C 和 C++ 库（官方解释），
+	   是工具，什么工具？ 用来在全平台管理c和c++库的工具
+	2. 怎么用呢？
+		现在，自己的工程（不一定是cmake工程）需要使用vcpkg提供的c/c++库：（以openssl为例，我的工程需要openssl提供内置的AES加密方法）
+		
+		首先，电脑需要安装git，因为vcpkg管理的库都发布在GitHub上面， 然后 本地克隆vcpkg，路径建议选择 c:/dev/src等，
+			运行 git lone https://github.com/microsoft/vcpkg
+			克隆完成后，运行脚本 bootstrap， 脚本位置 ./vcpkg/scripts/bootstrap.sh, 脚本会自动判断你的当前构建平台并且下载vcpkg工具
+		然后，
+		    1.查找自己所需要的库， ./vcpkg search openssl， 会打印出很多的openssl相关的信息，找到openssl（会显示版本号，库的信息等）
+		    2.通过vcpkg工具下载并编译库， ./vcpkg install openssl     （需要下载 Visual Studio 编译器）********???
+			3.构建完成后会打印库的使用方法（有一些没有useage，其他的使用方法*******???）
+			4.构建完成后可以在\vcpkg\install\triplet\下查看库的文件：
+			   bin: 存储动态库dll文件和pdb文件（pdb 是一个程序数据库文件，它是在编译时创建的。该文件包含调试和项目状态信息，允许增量链接程序的调试配置 *****???）
+			   debug: 动态库dll和静态库lib
+			   include: 头文件
+			   lib: 静态库和pkgconfig文件（传入命令的参数，比如版本信息，Cflag信息，include_dir信息等）
+			   share: cmake配置文件，copyright,usage等 ******???
+	3.	接下来，基础的通过vcpkg下载库后，使用这个库：
+	    了解库的作用，需要这个库的什么方法，调用这个库的那些函数来输入什么结果？
+			1.openssl是一个开源的工具包，提供加密和通信。
+			2.编写一个c函数，其中包含openssl的函数调用
+			3.写完后，需要将vcpkg下载的openssl库与编写的c++工程链接
+			4.使用cmake工具来编译，（也可使用gcc来行编译） ******???
+			5.工程实例编译完成。
+Cmake:
+	1.
+			
