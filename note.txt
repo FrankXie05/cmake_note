@@ -1,7 +1,7 @@
 Vcpkg:
-	1. 是什么？干什么？： Vcpkg 可帮助您在 Windows、 Linux 和 MacOS 上管理 C 和 C++ 库（官方解释），
+	1. 是什么？干什么？： Vcpkg 可帮助您在 Windows、 Linux 和 MacOS 上管理 C 和 C++ 库，
 	   是工具，什么工具？ 用来在全平台管理c和c++库的工具
-	2. 怎么用呢？
+	2. 怎么用？
 		现在，自己的工程（不一定是cmake工程）需要使用vcpkg提供的c/c++库：（以openssl为例，我的工程需要openssl提供内置的AES加密方法）
 		
 		首先，电脑需要安装git，因为vcpkg管理的库都发布在GitHub上面， 然后 本地克隆vcpkg，路径建议选择 c:/dev/src等，
@@ -10,20 +10,123 @@ Vcpkg:
 		然后，
 		    1.查找自己所需要的库， ./vcpkg search openssl， 会打印出很多的openssl相关的信息，找到openssl（会显示版本号，库的信息等）
 		    2.通过vcpkg工具下载并编译库， ./vcpkg install openssl     （需要下载 Visual Studio 编译器）********???
-			3.构建完成后会打印库的使用方法（有一些没有useage，其他的使用方法*******???）
+			3.构建完成后会打印库的使用方法（有一些没有useage，其他的使用方法*******??? -> find_path(指定头文件的目录), find_library(库的路径) -> find_package()****
 			4.构建完成后可以在\vcpkg\install\triplet\下查看库的文件：
 			   bin: 存储动态库dll文件和pdb文件（pdb 是一个程序数据库文件，它是在编译时创建的。该文件包含调试和项目状态信息，允许增量链接程序的调试配置 *****???）
 			   debug: 动态库dll和静态库lib
 			   include: 头文件
 			   lib: 静态库和pkgconfig文件（传入命令的参数，比如版本信息，Cflag信息，include_dir信息等）
-			   share: cmake配置文件，copyright,usage等 ******???
+			   share: cmake配置文件，copyright,usage等 ******???(如何添加usage，添加的规则)
 	3.	接下来，基础的通过vcpkg下载库后，使用这个库：
 	    了解库的作用，需要这个库的什么方法，调用这个库的那些函数来输入什么结果？
 			1.openssl是一个开源的工具包，提供加密和通信。
 			2.编写一个c函数，其中包含openssl的函数调用
 			3.写完后，需要将vcpkg下载的openssl库与编写的c++工程链接
-			4.使用cmake工具来编译，（也可使用gcc来行编译） ******???
+			4.使用cmake工具来编译，（也可使用gcc来行编译） ******???(参考第5点) 编译是什么？
 			5.工程实例编译完成。
-Cmake:
-	1.
+			6.关于vcpkg在vs中的集成以及如何在cmake工程中使用vcpkg提供的库.***
+	4. cmake与vcpkg与VS的关系和作用：
+			1. VS会无缝集成vcpkg(全局集成和工程集成), VS会通过TOOLCHAIN_FILE来集成vcpkg.
+			2. VS支持cmake工程，并且在
+			3. vcpkg目前对于包的管理还是通过cmake(CMakeLists.txt)来提供配置环境，通过本身的portfile.cmake和vcpkg.json来进行包的维护.
+			4. eg： ./vcpkg install package_name
+	5.
+	````
+		hello.c:
+			#include <stdio.h>
 			
+			int main()
+			{
+				printf("Hello World");
+				return 0;
+			}
+	````
+	一个简单的hello.c的源文件，想要在Linux上运行，就需要使用GCC.
+	GCC:
+		是什么？: GCC 原来叫做 GUN C Conmpiler,但是经过发展，不仅支持C语言，而且还支持C++、Ada、Objective-C、Fortran 和 Java 等，
+				因此现在叫做GUN Compiler Collection,是一个编译套件。使用gcc/g++来编译项目
+				
+		为什么？： GCC作为GUN的一个项目，是支持多平台的编译器，且免费，功能强大。
+				GCC 可被用作交互式编译器；可以使用 GCC 对所有设备与操作系统创建可执行程序，不需要局限于仅仅是运行 GCC 的平台。
+		怎么用？： 1.预编译： 将hello.c和stdio.h编译为 hello.i ( gcc -E hello.c -o hello.i)
+				2.编译： 将hello.i编译为hello.s ( gcc -S hello.i -o hello.o)
+				3.汇编： 将hello.s翻译为机器指令hello.o（.o目标文件） (gcc -c hello.s -o hello.o)
+				4.链接： 链接各种需要的库和其他目标文件，得到hello.out (gcc hello.o -o hello)
+	MSVC: 
+		是什么？：第三方运行时库. MinGW（全称：Minimalist GNU For Windows ）/MSVC,
+						MinGW:是一些头文件和端口库的集合，可以让人们在没有链接第三方库的时候用gcc编译win32程序
+						它是一个可自由使用和自由发布的Windows特定头文件和使用GNU工具集导入库的集合，
+							  允许你在Windows平台生成本地的Windows程序而不需要第三方C运行时(C Runtime)库。
+							  运行时库：支持程序运行的基本函数的集合，一般是静态库lib或动态库dll。
+						MSVC: 第三方运行时库，微软开发的VC运行时库，继承VS。
+	CLANG:
+		是什么： C、C++等语言的编译器前端。采用了LLVM为后端。
+		为什么： 提供一个GUN编译套件（GCC）的替代品。
+		
+    三者之间的区别： 
+	
+	6. Visual Studio: 开发工具集，集成开发编译环境。
+	7. MSbuild: 全称： Microsoft Build Engine 是一个用于构建应用程序的平台。该引擎也称为 MSBuild，它为项目文件提供 XML 架构，用于控制构建平台如何处理和构建软件。
+					Visual Studio 使用 MSBuild，但 MSBuild 不依赖于 Visual Studio。
+					通过在您的项目或解决方案文件上调用msbuild.exe，您可以在未安装 Visual Studio 的环境中编排和构建产品。
+	
+	
+New Port:
+	1. 了解新port最基本有什么？： portfile.cmake, vcpkg.json，CMakeLists.txt
+	2. 为什么是这些文件？跟cmake和vcpkg有什么关系？
+		portfile.cmake： 在port构建之前做一些预处理的工作
+	3. 怎么写？文件里最基本的参数有哪些？
+		portfile.cmake: {CURRENT_BUILDTREES_DIR} = ${VCPKG_ROOT_DIR}\buildtrees\${PORT}
+						{CURRENT_PACKAGE_DIR} = ${VCPKG_ROOT_DIR}\packages\${PORT_${TARGET_TRIPLET}
+	4. 实现什么功能？输出什么？
+	5. 新port添加后怎么用?
+	   Export cmake usage.
+	6. 扩展： usage、wrapper.cmake等
+	7. 应用：
+			添加新端口： 
+			1. 编写一个简单的c++库，提供版本号. https://github.com/FrankXie05/vcpkgdemo/tree/v1.0.0_lib 
+			2. 在vcpkg/ports下面提供一个名为demo的文件夹，并在文件夹下面编写 porfile.cmake和vcpkg.json文件
+
+		
+CMake(配置工具):
+	CMake是一个跨平台的安装（编译***）工具，可以用简单的语句来描述所有平台的安装(编译过程)。
+	他能够输出各种各样的makefile或者project文件，能测试编译器所支持的C++特性,类似UNIX下的automake。
+	只是 CMake 的组态档取名为 CMakeLists.txt。Cmake 并不直接建构出最终的软件，
+	而是产生标准的建构档（如 Unix 的 Makefile 或 Windows Visual C++ 的 projects/workspaces），
+	然后再依一般的建构方式使用。这使得熟悉某个集成开发环境（IDE）的开发者可以用标准的方式建构他的软件，这种可以使用各平台的原生建构系统的能力是 CMake 和 SCons 等其他类似系统的区别之处。
+	
+    1. 跨平台的编译工具. 
+	2. Makefile: 
+			是什么？在编译多个程序时，需要不同文件夹中的文件，需要生成不同的库文件，而且还需要确定发生成文件的顺序，因此需要的命令很多并且复杂。
+			为什么？因此，使用makefile文件来规范和集中这些命令，然后通过解析makefile文件来执行编译指令.
+			怎么用？： 
+			eg: 使用 三个.c文件来编译一个 Test文件，（实质上使用的还是gcc的编译命令）
+			Makefile:
+				Test:Test.o 1.o 2.o 
+						gcc Test.o 1.o 2.o -o Test
+			    Test.o:Test.c 
+						gcc -c Test.c 1.c 2.c -o Test.o(生成Test.o)
+				1.o:1.c
+						gcc -c 1.c -o 1.o(生成1.o)
+				2.o：2.c
+						gcc -c 2.c -o 2.o(生成2.o)
+			写好的的makefile用make处理(make是一种批处理工具).
+			在当前文件夹下之执行make命令，makefile会在默认路径下寻找对应的makefile文件，（名称：makefile或Makefile）.
+			
+	3. CMake和Makefile:
+		cmake是用来处理makefile的一个工具： 读取所有的源文件后自动生成makefile文件.通过CMakeLists.txt来生成makefile，在传递给make来进行处理，生成可行性文件或者工程文件。
+			源文件 -> CMakeLists.txt -> Cmake -> Makefile -> make -> 目标文件
+	4. 如何编写CMakeLists.txt文件？
+	5. cmake使用：
+		eg: find_package()
+		
+		
+额外：
+	编译：编译(compilation , compile) 是将相同的程序从高级语言转换到计算机语言(二进制)的过程。编译器是运行上述任务的软件。  
+		1、利用编译程序从源语言编写的源程序产生目标程序的过程。 2、用编译程序产生目标程序的动作。
+		编译程序把一个源程序翻译成目标程序的工作过程分为五个阶段:词法分析;语法分析;语义检查和中间代码生成;代码优化;目标代码生成。
+	链接：链接是指在电子计算机程序的各模块之间传递参数和控制命令，并把它们组成一个可执行的整体的过程. 超链接.
+	动态链接库
+	静态编译:
+	动态编译：
+	....
