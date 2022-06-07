@@ -1,0 +1,17 @@
+{
+	"name": "demo",
+	"version": "1.0.0",
+	"description": "vcpkg demo",
+	"homepage": "https://github.com/FrankXie05/vcpkgdemo",
+	"dependencies":[
+	{
+		"name": "vcpkg-cmake",
+		"host": true
+	},
+	{
+		"name": "vcpkg-cmake-config",
+		"host": true
+	}
+	
+	]
+}
