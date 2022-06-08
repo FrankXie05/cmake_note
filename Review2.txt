@@ -1,0 +1,13 @@
+vcpkg:
+ 1. 认识vcpkg，是什么？干什么？怎么用？
+ 2. 熟悉Port的使用流程
+ 3. 写一个新port（要求： 正常编译，生成所需要的所有东西）
+ 4. cmake在vcpkg与VS中的关系以及作用
+ 5. gcc与MSVC，CLANG的区别
+ 6. Visual Studio 是什么？干什么？怎么用？
+ 7. MSBuild 是什么？干什么？怎么用？
+ 
+cmake:
+ 1. 认识cmake,是什么？干什么？怎么用？
+ 2. cmake使用方法，使用模式。
+	
