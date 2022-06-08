@@ -1,6 +1,12 @@
 Vcpkg:
 	1. 是什么？干什么？： Vcpkg 可帮助您在 Windows、 Linux 和 MacOS 上管理 C 和 C++ 库，
 	   是工具，什么工具？ 用来在全平台管理c和c++库的工具
+	   为什么？：1.自动下载开源库源代码。
+		    2.源码包的缓存管理和版本管理，可以升级版本。
+		    3.轻松编译。
+		    4.依赖关系检查（比如编译 libcurl，会自动下载 zlib、openssl 进行编译）。
+		    5.无缝集成 Visual Studio，不需要设置库文件、头文件的所在目录，自动集成。
+		    6.Visual Studio 全平台支持，不仅支持 Debug/Release、x86/x64 编译，还支持 UWP、ARM 平台的编译。
 	2. 怎么用？
 		现在，自己的工程（不一定是cmake工程）需要使用vcpkg提供的c/c++库：（以openssl为例，我的工程需要openssl提供内置的AES加密方法）
 		
