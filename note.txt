@@ -136,3 +136,8 @@ CMake(配置工具):
 	静态编译:
 	动态编译：
 	....
+
+demo provides CMake targets:
+	# this is heuristically generated, and may not be correct
+	find_package(unofficial-hello_static-config CONFIG REQUIRED)
+	target_link_libraries(main PRIVATE hello_static)
