@@ -295,7 +295,7 @@ VERSION 指代动态库版本，SOVERSION 指代 API 版本。
 ### 使用外部共享库和头文件
 include<hello/hello.h>
 
-### target_include_directories
+### TARGET_INCLUDE_DIRECTORIES
 ```
 target_include_directories(<target> [SYSTEM] [AFTER|BEFORE]
   <INTERFACE|PUBLIC|PRIVATE> [items1...]
@@ -319,10 +319,22 @@ url: https://cmake.org/cmake/help/latest/command/target_link_libraries.html
 
 `TARGET_LINK_LIBRARIES(main libhello.a)`
 
-### 名称定义
+## 名称定义
 
-动态链接库： DLL  动态链接库文件，是一种不可执行的二进制程序文件，它允许程序共享执行特殊任务所必需的代码和其他资源. 
-		也就是说在应用程序启动的时候才会链接，用于动态编译。
-静态编译:  在编译器编译可执行文件时，将可执行文件需要调用的对应动态链接库中的部分提取出来，链接到可执行文件中.
-动态编译:  动态编译的​ ​可执行文件​​需要附带一个的​动态链接库, 在编译器编译可执行文件时，调用其对应动态链接库中的命令.
+### 动态链接库
 
+	DLL  动态链接库文件，是一种不可执行的二进制程序文件，它允许程序共享执行特殊任务所必需的代码和其他资源. 
+	也就是说在应用程序启动的时候才会链接，用于动态编译。
+	
+### 静态编译  
+
+	在编译器编译可执行文件时，将可执行文件需要调用的对应动态链接库中的部分提取出来，链接到可执行文件中.
+	
+### 动态编译: 
+
+	动态编译的​ ​可执行文件​​需要附带一个的​动态链接库, 在编译器编译可执行文件时，调用其对应动态链接库中的命令.
+
+### 组态档
+	
+	组态档，或者叫 configuration file,配置文件,组态档是用一种建构软件专用的特殊编程语言写的 CMake 脚本。
+	使用组态档能改变程序的设置，而不用重新编译程序。
