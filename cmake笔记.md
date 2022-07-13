@@ -24,7 +24,7 @@ std::cout <<  "hello word" << std::endl;
 
 2、步骤二，写CMakeLists.txt
 
-```cpp
+```
 #CMakeLists.txt
 
 cmake_minimum_required(VERSION 3.0)
@@ -64,7 +64,7 @@ PROJECT (HELLO CXX)      指定了工程的名字，并且支持语言是C++
 
 PROJECT (HELLO C CXX)      指定了工程的名字，并且支持语言是C和C++
 
-## SET关键字
+## SET关键字（其他参数****）
 
 用来显示的指定变量的
 
@@ -332,8 +332,3 @@ url: https://cmake.org/cmake/help/latest/command/target_link_libraries.html
 ### 动态编译: 
 
 	动态编译的​ ​可执行文件​​需要附带一个的​动态链接库, 在编译器编译可执行文件时，调用其对应动态链接库中的命令.
-
-### 组态档
-	
-	组态档，或者叫 configuration file,配置文件,组态档是用一种建构软件专用的特殊编程语言写的 CMake 脚本。
-	使用组态档能改变程序的设置，而不用重新编译程序。

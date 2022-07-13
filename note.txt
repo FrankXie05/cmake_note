@@ -15,8 +15,8 @@ Vcpkg:
 			克隆完成后，运行脚本 bootstrap， 脚本位置 ./vcpkg/scripts/bootstrap.sh, 脚本会自动判断你的当前构建平台并且下载vcpkg工具
 		然后，
 		    1.查找自己所需要的库， ./vcpkg search openssl， 会打印出很多的openssl相关的信息，找到openssl（会显示版本号，库的信息等）
-		    2.通过vcpkg工具下载并编译库， ./vcpkg install openssl     （需要下载 Visual Studio 编译器）********???
-			3.构建完成后会打印库的使用方法（有一些没有useage，其他的使用方法*******??? -> find_path(指定头文件的目录), find_library(库的路径) -> find_package()****
+		    2.通过vcpkg工具下载并编译库， ./vcpkg install openssl    
+			3.构建完成后会打印库的使用方法（有一些没有usage，其他的使用方法*******??? -> find_path(指定头文件的目录), find_library(库的路径) -> find_package()****
 			4.构建完成后可以在\vcpkg\install\triplet\下查看库的文件：
 			   bin: 存储动态库dll文件和pdb文件（pdb 是一个程序数据库文件，它是在编译时创建的。该文件包含调试和项目状态信息，允许增量链接程序的调试配置 *****???）
 			   debug: 动态库dll和静态库lib
@@ -28,7 +28,7 @@ Vcpkg:
 			1.openssl是一个开源的工具包，提供加密和通信。
 			2.编写一个c函数，其中包含openssl的函数调用
 			3.写完后，需要将vcpkg下载的openssl库与编写的c++工程链接
-			4.使用cmake工具来编译，（也可使用gcc来行编译） ******???(参考第5点) 编译是什么？
+			4.使用cmake工具来编译，（也可使用gcc来行编译）(参考第5点) 编译是什么？
 			5.工程实例编译完成。
 			6.关于vcpkg在vs中的集成以及如何在cmake工程中使用vcpkg提供的库.***
 	4. cmake与vcpkg与VS的关系和作用：
@@ -137,7 +137,15 @@ CMake(配置工具):
 	动态编译：
 	....
 
+编译器标准原则： 语言原则，通过 标准（C++ STAND）制定，输入编译选项（） 输出二进制机语言来生成可执行文件
+ 功能： 实现语言标准， 如何实现 通过配置器： Ninja, makefile -> 生成配置命令 -> 编译器编译
+
 demo provides CMake targets:
 	# this is heuristically generated, and may not be correct
 	find_package(unofficial-hello_static-config CONFIG REQUIRED)
 	target_link_libraries(main PRIVATE hello_static)
+
+
+
+*******3: usage（如何添加，如何打印，打印内容从哪里来）, vs集成（integrate)两种集成方式的不同以及不同之处在哪里,MSVC BUILD工程如何集成和实现的
+		动态链接库和静态链接库的区别，内容。为什么使用它们？

@@ -11,3 +11,12 @@ cmake:
  1. 认识cmake,是什么？干什么？怎么用？
  2. cmake使用方法，使用模式。
 	
+
+
+
+Review3: 
+1. windows和osx的示例
+2. 为什么只makefile而不生成其他的(sln,ninja)配置文件
+
+1.find_package():moudlue模式， 获取查找到库的版本号-
+2.find_package(config): *.config, 使用的时候会查找
