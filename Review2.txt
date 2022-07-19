@@ -17,6 +17,11 @@ cmake:
 Review3: 
 1. windows和osx的示例
 2. 为什么只makefile而不生成其他的(sln,ninja)配置文件
+	makefile -> gcc, 默认
+	build.ninja -> Ninja 前提下载ninja  命令sudo apt-get -y install ninja-build
+	sln -> .sln为解决方案未见， .vcproj为工程文件可以包含多个解决方案
+		*.sln：(Visual Studio.Solution) 通过为环境提供对项目、项目项和解决方案项在磁盘上位置的引用,可将它们组织到解决方案中。
+比如是生成Debug模式,还是Release模式,是通用CPU还是专用的等
 
 1.find_package():moudlue模式， 获取查找到库的版本号-
 2.find_package(config): *.config, 使用的时候会查找
